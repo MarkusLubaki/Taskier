@@ -1,0 +1,38 @@
+import sqlite3
+
+conn = sqlite3.connect("tasks.db")
+cursor = conn.cursor()
+
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS tasks ("
+    "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "title TEXT, about TEXT, is_done INTEGER DEFAULT 0)"
+)
+conn.commit()
+
+
+def add_task(title, about):
+    cursor.execute("INSERT INTO tasks (title, about) VALUES (?, ?)", (title, about))
+    conn.commit()
+
+
+def list_tasks():
+    cursor.execute("SELECT * FROM tasks")
+    return cursor.fetchall()
+
+
+def delete_task(task_id):
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+    conn.commit()
+    return cursor.rowcount  
+
+
+def mark_done(task_id):
+    cursor.execute("UPDATE tasks SET is_done = 1 WHERE id = ?", (task_id,))
+    conn.commit()
+    return cursor.rowcount
+
+
+def clear_tasks():
+    cursor.execute("DELETE FROM tasks")
+    conn.commit()
