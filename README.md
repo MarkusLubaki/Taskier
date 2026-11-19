@@ -3,7 +3,7 @@
 A simple task manager built with Python, SQLite and NiceGUI. Add tasks, mark them as done, and delete them, from a web interface or from the terminal.
 Taskier is a project made by a student, and it's in early development.
 
-![Screenshot](screenshot.png)
+![Screenshot](assets/example.png)
 
 ## Features
 
