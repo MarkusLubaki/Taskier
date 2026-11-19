@@ -1,3 +1,6 @@
+# Terminal mode of Taskier
+# Not using this .py in the APP version
+
 import tasks
 
 while True:

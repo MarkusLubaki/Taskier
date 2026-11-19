@@ -1,6 +1,7 @@
 import sqlite3
 
-conn = sqlite3.connect("tasks.db")
+# Create the DB
+conn = sqlite3.connect("tasks.db", check_same_thread=False)
 cursor = conn.cursor()
 
 cursor.execute(
@@ -36,3 +37,8 @@ def mark_done(task_id):
 def clear_tasks():
     cursor.execute("DELETE FROM tasks")
     conn.commit()
+
+def set_done(task_id, done):
+    cursor.execute("UPDATE tasks SET is_done = ? WHERE id = ?", (1 if done else 0, task_id))
+    conn.commit()
+    return cursor.rowcount
