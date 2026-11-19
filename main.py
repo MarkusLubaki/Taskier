@@ -9,6 +9,7 @@ def add_task():
     title = input("Enter the task: ")
     about = input("What is this about: ")
     cursor.execute("INSERT INTO tasks (title, about) VALUES (?, ?)", (title, about))
+    conn.commit()
 
 def list_tasks():
     cursor.execute("SELECT * FROM tasks")
@@ -18,13 +19,16 @@ def list_tasks():
 def delete_task():
     task_id = input("Enter the id of the task to delete: ")
     cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id))
+    conn.commit()
 
 def mark_done():
     task_id = input("Enter the id of the task to mark done: ")
     cursor.execute("UPDATE tasks SET is_done = 1 WHERE id = ?", (task_id))
+    conn.commit()
 
 def clear_tasks():
     cursor.execute("DELETE FROM tasks")
+    conn.commit()
 
 
 # Loop for the "menu"
@@ -47,5 +51,4 @@ while True:
     else:
         print("Not an option")
 
-conn.commit()
 conn.close()
