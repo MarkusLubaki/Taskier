@@ -38,7 +38,17 @@ def clear_tasks():
     cursor.execute("DELETE FROM tasks")
     conn.commit()
 
+
 def set_done(task_id, done):
     cursor.execute("UPDATE tasks SET is_done = ? WHERE id = ?", (1 if done else 0, task_id))
+    conn.commit()
+    return cursor.rowcount
+
+
+def update_task(task_id, title, about):
+    cursor.execute(
+        "UPDATE tasks SET title = ?, about = ? WHERE id = ?",
+        (title, about, task_id),
+    )
     conn.commit()
     return cursor.rowcount
